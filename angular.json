@@ -2,5 +2,166 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "datepicker": {
+      "projectType": "library",
+      "root": "projects/datepicker",
+      "sourceRoot": "projects/datepicker/src",
+      "prefix": "slim",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/datepicker/tsconfig.lib.json",
+            "project": "projects/datepicker/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/datepicker/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/datepicker/src/test.ts",
+            "tsConfig": "projects/datepicker/tsconfig.spec.json",
+            "karmaConfig": "projects/datepicker/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/datepicker/tsconfig.lib.json",
+              "projects/datepicker/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "datepicker-demo": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/datepicker-demo",
+      "sourceRoot": "projects/datepicker-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/datepicker-demo",
+            "index": "projects/datepicker-demo/src/index.html",
+            "main": "projects/datepicker-demo/src/main.ts",
+            "polyfills": "projects/datepicker-demo/src/polyfills.ts",
+            "tsConfig": "projects/datepicker-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/datepicker-demo/src/favicon.ico",
+              "projects/datepicker-demo/src/assets"
+            ],
+            "styles": [
+              "projects/datepicker-demo/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/datepicker-demo/src/environments/environment.ts",
+                  "with": "projects/datepicker-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "datepicker-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "datepicker-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "datepicker-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/datepicker-demo/src/test.ts",
+            "polyfills": "projects/datepicker-demo/src/polyfills.ts",
+            "tsConfig": "projects/datepicker-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/datepicker-demo/karma.conf.js",
+            "assets": [
+              "projects/datepicker-demo/src/favicon.ico",
+              "projects/datepicker-demo/src/assets"
+            ],
+            "styles": [
+              "projects/datepicker-demo/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/datepicker-demo/tsconfig.app.json",
+              "projects/datepicker-demo/tsconfig.spec.json",
+              "projects/datepicker-demo/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/datepicker-demo/e2e/protractor.conf.js",
+            "devServerTarget": "datepicker-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "datepicker-demo:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": false
+  },
+  "defaultProject": "datepicker"
 }
