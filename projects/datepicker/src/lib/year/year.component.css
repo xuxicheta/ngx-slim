@@ -1,0 +1,29 @@
+slim-year {
+  display: block;
+  width: 196px;
+  height: 140px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid black;
+}
+
+slim-year slim-month {
+  background: white;
+}
+
+/* slim-year .moving-container {
+  position: absolute;
+  top: 0;
+  left: -196px;
+  width: 588px;
+  height: 140px;
+  display: flex;
+  transition: transform 0.2s ease;
+} */
+
+slim-year slim-month.flying-month {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* top: 100%; */
+}

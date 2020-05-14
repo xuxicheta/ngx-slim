@@ -1,0 +1,8 @@
+<div>
+  {{month$ | async}}.{{year$ | async}}
+</div>
+
+<slim-year [year]="year$ | async"></slim-year>
+
+<button (click)="onPreviousClick()">previous</button>
+<button (click)="onNextClick()">next</button>

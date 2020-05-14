@@ -58,7 +58,7 @@
             "main": "projects/datepicker-demo/src/main.ts",
             "polyfills": "projects/datepicker-demo/src/polyfills.ts",
             "tsConfig": "projects/datepicker-demo/tsconfig.app.json",
-            "aot": true,
+            "aot": false,
             "assets": [
               "projects/datepicker-demo/src/favicon.ico",
               "projects/datepicker-demo/src/assets"

@@ -16,7 +16,7 @@
       "dom"
     ],
     "paths": {
-      "datepicker": [
+      "ngx-slim-datepicker": [
         "dist/datepicker/datepicker",
         "dist/datepicker"
       ]
