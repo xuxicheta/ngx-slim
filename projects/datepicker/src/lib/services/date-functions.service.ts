@@ -1,7 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { getLocaleFirstDayOfWeek } from '@angular/common';
 
 @Injectable()
 export class DateFunctionsService {
+
+  constructor(
+    @Inject(LOCALE_ID) private localeID: string,
+  ) { }
 
   public normalizeDate(month: number, year: number): {month: number, year: number, date: Date} {
     const date = new Date(year, month, 1, 12);
@@ -12,8 +17,8 @@ export class DateFunctionsService {
     };
   }
 
-  public localizedGetDay(date: Date): number {
-    return (date.getDay() || 7) - 1;
+  public localizedGetDay(date: Date, localeID: string): number {
+    return ((date.getDay() || 7) - getLocaleFirstDayOfWeek(localeID)) % 7;
   }
 
   public createCalendarArray(month: number, year: number): number[] {
@@ -21,8 +26,8 @@ export class DateFunctionsService {
     const d = normalizeDate(month, year);
 
     const endDate = new Date(d.year, d.month + 1, 0, 12);
-    const startDay = localizedGetDay(d.date);
-    const endDay = localizedGetDay(endDate);
+    const startDay = localizedGetDay(d.date, this.localeID);
+    const endDay = localizedGetDay(endDate, this.localeID);
 
     let calendar: number[] = Array(startDay).fill(null);
     for (let i = 1; i <= endDate.getDate(); i++) {

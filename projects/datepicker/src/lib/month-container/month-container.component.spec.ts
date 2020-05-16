@@ -1,11 +1,11 @@
+import { AnimationEvent } from '@angular/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MonthContainerComponent } from './month-container.component';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent, MockedComponent } from 'ng-mocks';
 import { MonthComponent } from '../month/month.component';
-import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
-import { AnimationEvent } from '@angular/animations';
+import { MonthContainerComponent } from './month-container.component';
+
 
 describe('YearComponent', () => {
   let component: MonthContainerComponent;
@@ -15,7 +15,7 @@ describe('YearComponent', () => {
     TestBed.configureTestingModule({
       declarations: [MonthContainerComponent, MockComponent(MonthComponent)],
       imports: [
-        BrowserAnimationsModule,
+        NoopAnimationsModule,
       ]
     })
       .compileComponents();
@@ -47,8 +47,8 @@ describe('YearComponent', () => {
     component.nextMonth = 4;
     fixture.detectChanges();
 
-    const flying = fixture.debugElement.query(By.css('.flying-month')).componentInstance;
-    const current = fixture.debugElement.query(By.css('.current-month')).componentInstance;
+    const flying: MockedComponent<MonthComponent> = fixture.debugElement.query(By.css('.flying-month')).componentInstance;
+    const current: MockedComponent<MonthComponent> = fixture.debugElement.query(By.css('.current-month')).componentInstance;
 
     expect(flying.month).toBe(component.nextMonth);
     expect(flying.year).toBe(component.year);
@@ -88,7 +88,7 @@ describe('YearComponent', () => {
   });
 
   it('should change animationState and nextMonth after call onCurrentDone', async () => {
-    let emittedNextMonth = null;
+    let emittedNextMonth: number = null;
     const evt = { toState: 'previous' } as AnimationEvent;
     component.nextMonthChange.subscribe(n => emittedNextMonth = n);
     component.animationState = 'previous';

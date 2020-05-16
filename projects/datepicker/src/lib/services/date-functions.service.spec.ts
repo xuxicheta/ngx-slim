@@ -6,7 +6,9 @@ describe('DateFunctionsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DateFunctionsService]
+      providers: [
+        DateFunctionsService,
+      ]
     });
     service = TestBed.inject(DateFunctionsService);
   });
@@ -54,13 +56,13 @@ describe('DateFunctionsService', () => {
 
   describe('localizedGetDay', () => {
     it('monday', () => {
-      expect(service.localizedGetDay(new Date(2020, 4, 4))).toEqual(0);
+      expect(service.localizedGetDay(new Date(2020, 4, 4), 'ru')).toEqual(0);
     });
     it('friday', () => {
-      expect(service.localizedGetDay(new Date(2020, 4, 1))).toEqual(4);
+      expect(service.localizedGetDay(new Date(2020, 4, 1), 'ru')).toEqual(4);
     });
     it('sunday', () => {
-      expect(service.localizedGetDay(new Date(2020, 4, 17))).toEqual(6);
+      expect(service.localizedGetDay(new Date(2020, 4, 17), 'ru')).toEqual(6);
     });
   });
 

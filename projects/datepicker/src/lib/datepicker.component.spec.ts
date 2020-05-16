@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockComponent } from 'ng-mocks';
+import { MockComponent, MockPipe } from 'ng-mocks';
 import { DatepickerComponent } from './datepicker.component';
+import { MonthContainerComponent } from './month-container/month-container.component';
 import { DateFunctionsService } from './services/date-functions.service';
 import { DatepickerService } from './services/datepicker.service';
 import { mockingDatepickerService } from './services/datepicker.service.mocks';
-import { MonthContainerComponent } from './month-container/month-container.component';
+import { MonthNamePipe } from './services/month-name.pipe';
 
 
 describe('DatepickerComponent', () => {
@@ -16,7 +17,8 @@ describe('DatepickerComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DatepickerComponent,
-        MockComponent(MonthContainerComponent)
+        MockComponent(MonthContainerComponent),
+        MockPipe(MonthNamePipe),
       ],
       providers: [DateFunctionsService],
     })

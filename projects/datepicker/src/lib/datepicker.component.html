@@ -1,4 +1,4 @@
-<div>{{month$ | async}}.{{year$ | async}}</div>
+<div>{{month$ | async | monthName | titlecase}} {{year$ | async}}</div>
 
 <slim-month-container
   [year]="year$ | async"

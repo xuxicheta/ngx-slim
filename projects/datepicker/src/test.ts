@@ -8,6 +8,12 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
+import localeRu from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+
+registerLocaleData(localeRu, 'ru');
+
 declare const require: {
   context(path: string, deep?: boolean, filter?: RegExp): {
     keys(): string[];
@@ -18,7 +24,12 @@ declare const require: {
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
+  platformBrowserDynamicTesting([
+    {
+      provide: LOCALE_ID,
+      useValue: 'ru',
+    }
+  ])
 );
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
