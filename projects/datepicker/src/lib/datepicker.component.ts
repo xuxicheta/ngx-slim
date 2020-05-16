@@ -13,6 +13,7 @@ import { DatepickerService } from './services/datepicker.service';
 export class DatepickerComponent implements OnInit {
   public month$ = this.datepickerService.month;
   public year$ = this.datepickerService.year;
+  public monthTurn$ = this.datepickerService.monthTurn;
 
   constructor(
     private datepickerService: DatepickerService,
@@ -22,10 +23,14 @@ export class DatepickerComponent implements OnInit {
   }
 
   onPreviousClick() {
-    this.datepickerService.shiftMonth('previous');
+    this.datepickerService.setMonthTurn({ turn: -1 });
   }
 
   onNextClick() {
-    this.datepickerService.shiftMonth('next');
+    this.datepickerService.setMonthTurn({ turn: 1 });
+  }
+
+  onNextMonthChange(nextMont: number) {
+    this.datepickerService.changeMonth(nextMont);
   }
 }

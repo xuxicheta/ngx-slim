@@ -1,0 +1,15 @@
+slim-month-container {
+  display: block;
+  width: 196px;
+  height: 140px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid black;
+}
+
+slim-month-container slim-month {
+  background: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

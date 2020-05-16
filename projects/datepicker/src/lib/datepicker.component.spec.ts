@@ -4,7 +4,7 @@ import { DatepickerComponent } from './datepicker.component';
 import { DateFunctionsService } from './services/date-functions.service';
 import { DatepickerService } from './services/datepicker.service';
 import { mockingDatepickerService } from './services/datepicker.service.mocks';
-import { YearComponent } from './year/year.component';
+import { MonthContainerComponent } from './month-container/month-container.component';
 
 
 describe('DatepickerComponent', () => {
@@ -16,7 +16,7 @@ describe('DatepickerComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DatepickerComponent,
-        MockComponent(YearComponent)
+        MockComponent(MonthContainerComponent)
       ],
       providers: [DateFunctionsService],
     })

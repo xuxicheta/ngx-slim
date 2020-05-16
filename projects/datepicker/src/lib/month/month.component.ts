@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { DateFunctionsService } from '../services/date-functions.service';
+import { HttpParams } from '@angular/common/http'
 
 @Component({
   selector: 'slim-month',
@@ -8,38 +9,16 @@ import { DateFunctionsService } from '../services/date-functions.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class MonthComponent implements OnInit, OnChanges {
+export class MonthComponent implements OnChanges {
   @Input() year: number;
   @Input() month: number;
-  public calendar;
+  public calendar: number[] = [];
 
   constructor(
     private dateFunctionsService: DateFunctionsService,
   ) { }
 
-  ngOnInit(): void {
-  }
-
   ngOnChanges() {
-    const { month, year } = this.dateFunctionsService.normalizeDate(this.month, this.year);
-    this.calendar = this.createCalendar(month, year);
+    this.calendar = this.dateFunctionsService.createCalendarArray(this.month, this.year);
   }
-
-  private createCalendar(month: number, year: number) {
-    const { localizedGetDay } = this.dateFunctionsService;
-
-    const startDate = new Date(year, month, 1, 12);
-    const endDate = new Date(year, month + 1, 0, 12);
-    const startDay = localizedGetDay(startDate);
-    const endDay = localizedGetDay(endDate);
-
-    let calendar = Array(startDay).fill('');
-    for (let i = 1; i <= endDate.getDate(); i++) {
-      calendar.push(i);
-    }
-    calendar = calendar.concat(Array(7 - endDay).fill(''));
-
-    return calendar;
-  }
-
 }

@@ -1,6 +1,7 @@
-import { DatepickerService } from './datepicker.service';
+import { DatepickerService, MonthTurn } from './datepicker.service';
 import { DateFunctionsService } from './date-functions.service';
 import { mockingDateFunctionsService } from './date-functions.service.mock';
+import { Subject } from 'rxjs';
 
 describe('DatepickerService', () => {
   let service: DatepickerService;
@@ -16,7 +17,7 @@ describe('DatepickerService', () => {
   });
 
   it('should emit year and month after changeMonth', () => {
-    dateFunctionsService.normalizeDate.and.returnValue({ month: 5, year: 15 });
+    dateFunctionsService.normalizeDate.and.returnValue({ month: 5, year: 15, date: null });
     const result = service.changeMonth(10);
 
     expect(result).toBeUndefined();
@@ -27,26 +28,27 @@ describe('DatepickerService', () => {
   });
 
   it('should emit changingMonth "next" after shiftMonth', () => {
-    let changeMonth;
-    service.changingMonth.subscribe(c => changeMonth = c);
-    service.shiftMonth('next');
+    let monthTurn: MonthTurn;
+    service.monthTurn.subscribe(c => monthTurn = c);
+    service.setMonthTurn({ turn: 1 });
 
-    expect(changeMonth).toBe('next');
+    expect(monthTurn).toEqual({ turn: 1 });
   });
 
   it('should emit changingMonth "previous" after shiftMonth', () => {
-    let changeMonth;
-    service.changingMonth.subscribe(c => changeMonth = c);
-    service.shiftMonth('previous');
+    let monthTurn: MonthTurn;
+    service.monthTurn.subscribe(c => monthTurn = c);
+    service.setMonthTurn({ turn: -1 });
 
-    expect(changeMonth).toBe('previous');
+    expect(monthTurn).toEqual({ turn: -1 });
   });
 
   it('should complete subjects after ngOnDestroy', () => {
     service.ngOnDestroy();
+    const { month$, year$, monthTurn$ } = service as unknown as Record<string, Subject<any>>;
 
-    expect((service as any).month$.complete).toBeTruthy();
-    expect((service as any).year$.complete).toBeTruthy();
-    expect((service as any).shiftMonth$.complete).toBeTruthy();
+    expect(month$.isStopped).toBeTruthy();
+    expect(year$.isStopped).toBeTruthy();
+    expect(monthTurn$.isStopped).toBeTruthy();
   });
 });

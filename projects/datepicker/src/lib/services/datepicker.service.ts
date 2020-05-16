@@ -2,12 +2,13 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { DateFunctionsService } from './date-functions.service';
 
+export type MonthTurn = { turn: number };
 
 @Injectable()
 export class DatepickerService implements OnDestroy {
   private month$ = new BehaviorSubject(0);
   private year$ = new BehaviorSubject(new Date().getFullYear());
-  private shiftMonth$ = new Subject<'next'|'previous'>();
+  private monthTurn$ = new Subject<MonthTurn>();
 
   constructor(
     private dateFunctionsService: DateFunctionsService,
@@ -21,8 +22,8 @@ export class DatepickerService implements OnDestroy {
     return this.year$.asObservable();
   }
 
-  get changingMonth() {
-    return this.shiftMonth$.asObservable();
+  get monthTurn() {
+    return this.monthTurn$.asObservable();
   }
 
   public changeMonth(month: number) {
@@ -31,12 +32,12 @@ export class DatepickerService implements OnDestroy {
     this.year$.next(result.year);
   }
 
-  public shiftMonth(shift: 'next' | 'previous') {
-    this.shiftMonth$.next(shift);
+  public setMonthTurn(turn: MonthTurn) {
+    this.monthTurn$.next(turn);
   }
 
   ngOnDestroy() {
-    this.shiftMonth$.complete();
+    this.monthTurn$.complete();
     this.month$.complete();
     this.year$.complete();
   }
