@@ -23,4 +23,5 @@ export const monthContainerAnimations = [
     transition('stable => next', useAnimation(currentAnimation, { params: { tx: '-100%' } })),
     transition('stable => previous', useAnimation(currentAnimation, { params: { tx: '100%' } })),
   ]),
-]
+];
+

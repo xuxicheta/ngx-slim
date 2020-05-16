@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { DateFunctionsService } from '../services/date-functions.service';
-import { HttpParams } from '@angular/common/http'
 
 @Component({
   selector: 'slim-month',
