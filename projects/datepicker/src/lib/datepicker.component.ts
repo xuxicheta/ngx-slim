@@ -23,7 +23,6 @@ export class DatepickerComponent implements OnInit {
   }
 
   onTurn(turn: 1|-1) {
-    console.log(turn);
     this.datepickerService.setMonthTurn({ turn });
   }
 

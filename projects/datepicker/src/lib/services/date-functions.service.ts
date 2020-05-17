@@ -22,12 +22,12 @@ export class DateFunctionsService {
   }
 
   public createCalendarArray(month: number, year: number): number[] {
-    const { localizedGetDay, normalizeDate } = this;
+    const { localizedGetDay, normalizeDate, localeID } = this;
     const d = normalizeDate(month, year);
 
     const endDate = new Date(d.year, d.month + 1, 0, 12);
-    const startDay = localizedGetDay(d.date, this.localeID);
-    const endDay = localizedGetDay(endDate, this.localeID);
+    const startDay = localizedGetDay(d.date, localeID);
+    const endDay = localizedGetDay(endDate, localeID);
 
     let calendar: number[] = Array(startDay).fill(null);
     for (let i = 1; i <= endDate.getDate(); i++) {
