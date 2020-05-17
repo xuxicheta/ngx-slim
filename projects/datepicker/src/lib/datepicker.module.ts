@@ -7,16 +7,17 @@ import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DateFunctionsService } from './services/date-functions.service';
 import { MonthNamePipe } from './services/month-name.pipe';
 import { ArrowComponent } from './arrow/arrow.component';
+import { ControlComponent } from './control/control.component';
 
 
 
 @NgModule({
-  declarations: [DatepickerComponent, MonthComponent, MonthContainerComponent, MonthNamePipe, ArrowComponent],
+  declarations: [DatepickerComponent, MonthComponent, MonthContainerComponent, MonthNamePipe, ArrowComponent, ControlComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
   ],
-  exports: [DatepickerComponent, ArrowComponent],
+  exports: [DatepickerComponent, ArrowComponent, ControlComponent],
   providers: [DateFunctionsService]
 })
 export class SlimDatepickerModule { }

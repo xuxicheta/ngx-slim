@@ -1,4 +1,8 @@
-<div>{{month$ | async | monthName | titlecase}} {{year$ | async}}</div>
+<slim-control
+  [year]="year$ | async"
+  [month]="month$ | async"
+  (turn)="onTurn($event)"
+></slim-control>
 
 <slim-month-container
   [year]="year$ | async"
@@ -6,6 +10,3 @@
   [monthTurn]="monthTurn$ | async"
   (nextMonthChange)="onNextMonthChange($event)"
 ></slim-month-container>
-
-<button (click)="onPreviousClick()">previous</button>
-<button (click)="onNextClick()">next</button>

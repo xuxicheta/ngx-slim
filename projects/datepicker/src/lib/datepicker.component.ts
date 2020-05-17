@@ -22,12 +22,9 @@ export class DatepickerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onPreviousClick() {
-    this.datepickerService.setMonthTurn({ turn: -1 });
-  }
-
-  onNextClick() {
-    this.datepickerService.setMonthTurn({ turn: 1 });
+  onTurn(turn: 1|-1) {
+    console.log(turn);
+    this.datepickerService.setMonthTurn({ turn });
   }
 
   onNextMonthChange(nextMont: number) {

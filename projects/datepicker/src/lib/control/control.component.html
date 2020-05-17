@@ -1,0 +1,10 @@
+<slim-arrow
+  class="flip"
+  (click)="turn.emit(-1)"
+></slim-arrow>
+
+<div class="control-panel">
+  <span (click)="pickMonth.emit()">{{month | monthName | titlecase}}</span>
+  <span (click)="pickYear.emit()">{{year}}</span>
+</div>
+<slim-arrow (click)="turn.emit(1)"></slim-arrow>

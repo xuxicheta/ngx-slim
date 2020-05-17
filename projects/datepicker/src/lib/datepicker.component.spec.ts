@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockComponent, MockPipe } from 'ng-mocks';
+import { MockComponent, MockPipe, Mock } from 'ng-mocks';
 import { DatepickerComponent } from './datepicker.component';
 import { MonthContainerComponent } from './month-container/month-container.component';
 import { DateFunctionsService } from './services/date-functions.service';
 import { DatepickerService } from './services/datepicker.service';
 import { mockingDatepickerService } from './services/datepicker.service.mocks';
 import { MonthNamePipe } from './services/month-name.pipe';
+import { ControlComponent } from './control/control.component';
 
 
 describe('DatepickerComponent', () => {
@@ -18,7 +19,7 @@ describe('DatepickerComponent', () => {
       declarations: [
         DatepickerComponent,
         MockComponent(MonthContainerComponent),
-        MockPipe(MonthNamePipe),
+        MockComponent(ControlComponent),
       ],
       providers: [DateFunctionsService],
     })
