@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ControlComponent } from './control.component';
 import { MockComponent, MockPipe } from 'ng-mocks';
 import { ArrowComponent } from '../arrow/arrow.component';
-import { MonthNamePipe } from '../services/month-name.pipe';
+import { MonthNamePipe } from '../localize/month-name.pipe';
 import { By } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
 
@@ -60,7 +60,7 @@ describe('ControlComponent', () => {
     expect(controlPanel).toBeTruthy();
   });
 
-  it('should have control panel text', async() => {
+  it('should have control panel text', () => {
     component.month = 1;
     component.year = 2000;
     fixture.detectChanges();

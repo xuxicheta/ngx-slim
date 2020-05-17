@@ -3,21 +3,30 @@ import { DatepickerComponent } from './datepicker.component';
 import { CommonModule } from '@angular/common';
 import { MonthComponent } from './month/month.component';
 import { MonthContainerComponent } from './month-container/month-container.component';
-import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DateFunctionsService } from './services/date-functions.service';
-import { MonthNamePipe } from './services/month-name.pipe';
+import { MonthNamePipe } from './localize/month-name.pipe';
 import { ArrowComponent } from './arrow/arrow.component';
 import { ControlComponent } from './control/control.component';
+import { MonthChooserComponent } from './month-chooser/month-chooser.component';
 
 
 
 @NgModule({
-  declarations: [DatepickerComponent, MonthComponent, MonthContainerComponent, MonthNamePipe, ArrowComponent, ControlComponent],
+  declarations: [
+    DatepickerComponent,
+    MonthComponent,
+    MonthContainerComponent,
+    MonthNamePipe,
+    ArrowComponent,
+    ControlComponent,
+    MonthChooserComponent,
+  ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
   ],
-  exports: [DatepickerComponent, ArrowComponent, ControlComponent],
+  exports: [DatepickerComponent],
   providers: [DateFunctionsService]
 })
 export class SlimDatepickerModule { }

@@ -5,8 +5,9 @@ import { MonthContainerComponent } from './month-container/month-container.compo
 import { DateFunctionsService } from './services/date-functions.service';
 import { DatepickerService } from './services/datepicker.service';
 import { mockingDatepickerService } from './services/datepicker.service.mocks';
-import { MonthNamePipe } from './services/month-name.pipe';
+import { MonthNamePipe } from './localize/month-name.pipe';
 import { ControlComponent } from './control/control.component';
+import { LocalizeService } from './localize/localize.service';
 
 
 describe('DatepickerComponent', () => {
@@ -21,7 +22,7 @@ describe('DatepickerComponent', () => {
         MockComponent(MonthContainerComponent),
         MockComponent(ControlComponent),
       ],
-      providers: [DateFunctionsService],
+      providers: [DateFunctionsService, LocalizeService],
     })
       .overrideComponent(DatepickerComponent, {
         set: {

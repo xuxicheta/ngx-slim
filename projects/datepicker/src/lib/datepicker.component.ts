@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DatepickerService } from './services/datepicker.service';
+import { LocalizeService } from './localize/localize.service';
 
 @Component({
   selector: 'slim-datepicker',
@@ -7,7 +8,7 @@ import { DatepickerService } from './services/datepicker.service';
   styleUrls: ['./datepicker.component.css'],
   encapsulation: ViewEncapsulation.None,
   providers: [
-    DatepickerService,
+    DatepickerService, LocalizeService
   ]
 })
 export class DatepickerComponent implements OnInit {
