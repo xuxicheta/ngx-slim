@@ -1,0 +1,9 @@
+<div
+  *ngFor="let year of dozen; let index = index"
+  class="year cell"
+  [class.today]="isNow(year)"
+  [class.chosen]="isChosen(year)"
+  (click)="pickYear.emit(year)"
+>
+  {{ year }}
+</div>

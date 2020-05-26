@@ -1,0 +1,14 @@
+<div
+  class="turn leafing"
+  [@turn]="leaf"
+  (@turn.done)="onAnimationDone($event)"
+>
+  <ng-content select="turn"></ng-content>
+</div>
+<div
+  class="stand leafing"
+  [@stand]="leaf"
+>
+  <ng-content select="stand"></ng-content>
+</div>
+

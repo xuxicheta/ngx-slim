@@ -15,4 +15,8 @@ describe('LocalizeService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should have monthNames', () => {
+    expect(service.monthNames.length).toBe(12);
+  });
 });

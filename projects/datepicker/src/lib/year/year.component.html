@@ -1,0 +1,9 @@
+<div
+  class="month cell"
+  [class.today]="isNow(index)"
+  [class.chosen]="isChosen(index)"
+  *ngFor="let monthName of monthNames; let index = index"
+  (click)="pickMonth.emit(index)"
+>
+  {{ monthName | titlecase }}
+</div>

@@ -10,8 +10,9 @@
     "component-selector": [
       true,
       "element",
-      ["slim"],
+      ["slim", "test"],
       "kebab-case"
-    ]
+    ],
+    "no-host-metadata-property": false
   }
 }

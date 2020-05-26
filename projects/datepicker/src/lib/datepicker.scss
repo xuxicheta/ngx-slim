@@ -1,0 +1,131 @@
+$width: 220px;
+$height: 160px;
+$controlHeight: 24px;
+$internalPadding: 2px;
+$elementPadding: 4px;
+
+.slim-datepicker {
+  display: block;
+  width: $width;
+  padding: 2px;
+  position: relative;
+}
+
+.today {
+  box-shadow: 0 0 2px 0 #999;
+}
+
+.slim-datepicker .cell.chosen {
+  box-shadow: 0 0 6px 0 red inset;
+}
+
+.cell {
+  border-radius: 4px;
+  padding: $elementPadding;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 2px 0 #bbb;
+  }
+}
+
+.slim-leafer {
+  display: block;
+  width: $width;
+  height: $height;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #ddd;
+  padding: $internalPadding;
+
+  .leafing {
+    background: white;
+    position: absolute;
+    top: $internalPadding;
+    left: $internalPadding;
+  }
+}
+
+.slim-month {
+  display: block;
+
+  .day {
+    height: $height / 5;
+    line-height: ($height / 5) - ($elementPadding * 2);
+    width: $width / 7;
+  }
+
+  .day:nth-child(7n) {
+    color: red;
+  }
+
+  .day:nth-child(7n-1) {
+    color: darkgray;
+  }
+}
+
+.slim-year {
+  display: block;
+
+  .month {
+    height: $height / 4;
+    line-height: ($height / 4) - ($elementPadding * 2);
+    width: $width / 3;
+  }
+
+  .month:hover {
+    background: #ddd;
+  }
+}
+
+.slim-dozen {
+  display: block;
+
+  .year {
+    height: $height / 4;
+    line-height: ($height / 4) - ($elementPadding * 2);
+    width: $width / 3;
+  }
+
+  .year:hover {
+    background: #ddd;
+  }
+}
+
+.slim-control {
+  display: flex;
+  height: $controlHeight;
+
+  .slim-arrow {
+    flex: none;
+  }
+
+  .control-panel {
+    flex: auto;
+    text-align: center;
+  }
+
+  .control-panel span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .control-panel span:not(:first-child) {
+    margin-left: 0.5em;
+  }
+}
+
+.slim-arrow {
+  cursor: pointer;
+  svg {
+    fill: #aaa;
+  }
+
+  &.flip {
+    transform: scaleX(-1);
+  }
+}

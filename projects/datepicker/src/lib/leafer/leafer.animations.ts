@@ -13,13 +13,13 @@ const currentAnimation = animation(
 );
 
 
-export const monthContainerAnimations = [
+export const leaferAnimations = [
   trigger('turn', [
     transition('stable => next', useAnimation(turnAnimation, { params: { tx: '100%' } })),
     transition('stable => previous', useAnimation(turnAnimation, { params: { tx: '-100%' } })),
   ]),
 
-  trigger('current', [
+  trigger('stand', [
     transition('stable => next', useAnimation(currentAnimation, { params: { tx: '-100%' } })),
     transition('stable => previous', useAnimation(currentAnimation, { params: { tx: '100%' } })),
   ]),

@@ -5,6 +5,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@
   templateUrl: './arrow.component.svg',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  host: { class: 'slim-arrow'},
 })
 export class ArrowComponent implements OnInit {
 

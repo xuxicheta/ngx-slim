@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DateFunctionsService } from '../services/date-functions.service';
-import { mockingDateFunctionsService } from '../services/date-functions.service.mock';
+import { DateFunctionsService } from '../date-functions/date-functions.service';
 import { MonthComponent } from './month.component';
+import { mockProvider } from '../../test/mock-provider';
 
 
 describe('MonthComponent', () => {
@@ -14,10 +14,7 @@ describe('MonthComponent', () => {
     TestBed.configureTestingModule({
       declarations: [MonthComponent],
       providers: [
-        {
-          provide: DateFunctionsService,
-          useValue: mockingDateFunctionsService(),
-        }
+        mockProvider(DateFunctionsService),
       ],
     })
       .compileComponents();

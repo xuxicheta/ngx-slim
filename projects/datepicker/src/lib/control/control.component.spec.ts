@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ControlComponent } from './control.component';
 import { MockComponent, MockPipe } from 'ng-mocks';
 import { ArrowComponent } from '../arrow/arrow.component';
-import { MonthNamePipe } from '../localize/month-name.pipe';
+import { MonthNamePipe } from './month-name/month-name.pipe';
 import { By } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
 
@@ -72,7 +72,7 @@ describe('ControlComponent', () => {
 
   it('should month click emit pickMonth', () => {
     let emitted: number = null;
-    component.pickMonth.subscribe(() => emitted = 1);
+    component.monthClick.subscribe(() => emitted = 1);
     const spanMonth = fixture.nativeElement.querySelectorAll('.control-panel span')[0];
     spanMonth.click();
     expect(emitted).toBe(1);
@@ -80,7 +80,7 @@ describe('ControlComponent', () => {
 
   it('should year click emit pickYear', () => {
     let emitted: number = null;
-    component.pickYear.subscribe(() => emitted = 1);
+    component.yearClick.subscribe(() => emitted = 1);
     const spanMonth = fixture.nativeElement.querySelectorAll('.control-panel span')[1];
     spanMonth.click();
     expect(emitted).toBe(1);

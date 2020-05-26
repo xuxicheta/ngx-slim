@@ -1,12 +1,27 @@
 <slim-control
-  [year]="year$ | async"
-  [month]="month$ | async"
-  (turn)="onTurn($event)"
+  [date]="date"
+  [mode]="mode"
+  (left)="left()"
+  (right)="right()"
+  (monthClick)="openMonth()"
+  (yearClick)="openYear()"
 ></slim-control>
 
-<slim-month-container
-  [year]="year$ | async"
-  [month]="month$ | async"
-  [monthTurn]="monthTurn$ | async"
-  (nextMonthChange)="onNextMonthChange($event)"
-></slim-month-container>
+<slim-leafer
+  [leaf]="leaf"
+  (leafDone)="onMonthAnimationDone()"
+>
+  <ng-container ngProjectAs="stand" [ngSwitch]="mode">
+    <slim-month *ngSwitchCase="Mode.Day" [date]="date" [chosenDate]="chosenDate" (pickDate)="pickDay($event)"></slim-month>
+    <slim-year *ngSwitchCase="Mode.Month" [date]="date" [chosenDate]="chosenDate"  (pickMonth)="pickMonth($event)"></slim-year>
+    <slim-dozen *ngSwitchCase="Mode.Year" [date]="date" [chosenDate]="chosenDate" (pickYear)="pickYear($event)"></slim-dozen>
+  </ng-container>
+
+  <ng-container ngProjectAs="turn" [ngSwitch]="mode">
+    <slim-month *ngSwitchCase="Mode.Day" [date]="nextDate"></slim-month>
+    <slim-year *ngSwitchCase="Mode.Month" [date]="nextDate"></slim-year>
+    <slim-dozen *ngSwitchCase="Mode.Year" [date]="nextDate"></slim-dozen>
+  </ng-container>
+</slim-leafer>
+
+

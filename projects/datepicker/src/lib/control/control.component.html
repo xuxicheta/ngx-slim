@@ -1,10 +1,22 @@
 <slim-arrow
   class="flip"
-  (click)="turn.emit(-1)"
+  (click)="left.emit()"
 ></slim-arrow>
 
-<div class="control-panel">
-  <span (click)="pickMonth.emit()">{{month | monthName | titlecase}}</span>
-  <span (click)="pickYear.emit()">{{year}}</span>
+<div
+  [ngSwitch]="mode"
+  class="control-panel"
+>
+  <ng-template [ngSwitchCase]="Mode.Day">
+    <span (click)="monthClick.emit()">{{date.getMonth() | monthName | titlecase}}</span>
+    <span (click)="yearClick.emit()">{{date.getFullYear()}}</span>
+  </ng-template>
+  <ng-template [ngSwitchCase]="Mode.Month">
+    <span (click)="yearClick.emit()">{{date.getFullYear()}}</span>
+  </ng-template>
+  <ng-template [ngSwitchCase]="Mode.Year">
+    <span (click)="yearClick.emit()">{{date.getFullYear()}}</span>
+  </ng-template>
 </div>
-<slim-arrow (click)="turn.emit(1)"></slim-arrow>
+
+<slim-arrow (click)="right.emit()"></slim-arrow>

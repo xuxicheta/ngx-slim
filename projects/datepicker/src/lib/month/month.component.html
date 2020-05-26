@@ -1,6 +1,9 @@
 <div
   *ngFor="let day of calendar"
-  class="day"
+  class="day cell"
+  [class.today]="isNow(day)"
+  [class.chosen]="isChosen(day)"
+  (click)="pickDate.emit(day)"
 >
-  {{day}}
+  {{day || ' '}}
 </div>
