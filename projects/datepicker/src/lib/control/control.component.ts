@@ -12,10 +12,10 @@ export class ControlComponent {
   @Input() date: Date;
   @Input() mode: Mode;
 
-  @Output() left = new EventEmitter<number>();
-  @Output() right = new EventEmitter<number>();
-  @Output() monthClick = new EventEmitter();
-  @Output() yearClick = new EventEmitter();
+  @Output() left = new EventEmitter<void>();
+  @Output() right = new EventEmitter<void>();
+  @Output() monthClick = new EventEmitter<void>();
+  @Output() yearClick = new EventEmitter<void>();
 
   Mode = Mode;
 }

@@ -14,7 +14,8 @@ export class LeaferComponent {
   @Input() leaf: 'stable' | 'next' | 'previous' = 'stable';
   @Output() leafDone = new EventEmitter();
 
-  @HostBinding('@.disabled') disabled = false;
+  @Input()
+  @HostBinding('@.disabled') disableAnimation = false;
 
   onAnimationDone(evt: AnimationEvent) {
     if (evt.toState !== 'stable') {

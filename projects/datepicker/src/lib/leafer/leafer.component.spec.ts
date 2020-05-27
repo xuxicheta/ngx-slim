@@ -1,121 +1,91 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MockedComponentFixture, MockRender } from 'ng-mocks';
 import { LeaferComponent } from './leafer.component';
+import { AnimationEvent } from '@angular/animations';
+
+
+const wrapperTemplate = `
+    <slim-leafer [leaf]="leaf" [disableAnimation]="disableAnimation" (leafDone)="leafDoneListener($event)">
+      <ng-container ngProjectAs="stand"><div id="stand"></div></ng-container>
+      <ng-container ngProjectAs="turn"><div id="turn"></div></ng-container>
+    </slim-leafer>
+  `;
+
+const createWrapper = () => ({
+  leaf: 'stable',
+  disableAnimation: false,
+  leafDoneListener: jasmine.createSpy(),
+});
 
 describe('LeaferComponent', () => {
   let component: LeaferComponent;
-  let fixture: ComponentFixture<LeaferComponent>;
+  let fixture: MockedComponentFixture<LeaferComponent, ReturnType<typeof createWrapper>>;
+  let wrapper: ReturnType<typeof createWrapper>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LeaferComponent ]
+      declarations: [LeaferComponent],
+      imports: [NoopAnimationsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LeaferComponent);
-    component = fixture.componentInstance;
+    wrapper = createWrapper();
+    fixture = MockRender(wrapperTemplate, wrapper);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have default parameters', () => {
+    expect(component.leaf).toBe('stable');
+  });
+
+  it('should contain context', () => {
+    const standEl = fixture.point.nativeElement.querySelector('#stand');
+    const turnEl = fixture.point.nativeElement.querySelector('#turn');
+    expect(standEl).toBeDefined();
+    expect(turnEl).toBeDefined();
+  });
+
+
+  it('should call onAnimationDone after setting leaf = "next"', async () => {
+    spyOn(component, 'onAnimationDone');
+    fixture.componentInstance.leaf = 'next';
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(component.onAnimationDone).toHaveBeenCalled();
+  });
+
+  it('should call onAnimationDone after setting leaf = "previous"', async () => {
+    await fixture.whenStable();
+    spyOn(component, 'onAnimationDone');
+
+    fixture.componentInstance.leaf = 'previous';
+    fixture.detectChanges();
+
+    await fixture.whenStable();
+
+    expect(component.onAnimationDone).toHaveBeenCalled();
+
+    const argument = (component.onAnimationDone as jasmine.Spy).calls.argsFor(0)[0] as AnimationEvent;
+    expect(argument.toState).toBe('previous');
+    expect(argument.triggerName).toBe('turn');
+    expect(argument.totalTime).toBe(200);
+  });
+
+
+  it('should change leaf and emit leafDone after call onAnimationDone', async () => {
+      const evt = { toState: 'previous' } as AnimationEvent;
+      component.leaf = null;
+      component.onAnimationDone(evt);
+
+      expect(component.leaf).toBe('stable');
+      expect(fixture.componentInstance.leafDoneListener).toHaveBeenCalled();
+    });
 });
-
-
-// describe('YearComponent', () => {
-//   let component: MonthContainerComponent;
-//   let fixture: ComponentFixture<MonthContainerComponent>;
-
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [MonthContainerComponent, MockComponent(MonthComponent)],
-//       imports: [
-//         NoopAnimationsModule,
-//       ]
-//     })
-//       .compileComponents();
-//   }));
-
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(MonthContainerComponent);
-//     component = fixture.componentInstance;
-//   });
-
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-
-//   it('should have default parameters', () => {
-//     expect(component.nextMonth).toBe(0);
-//     expect(component.animationState).toBe('stable');
-//   });
-
-//   it('should contain two slim-month', () => {
-//     fixture.detectChanges();
-//     const slimMonthDE = fixture.debugElement.queryAll(By.directive(MonthComponent));
-//     expect(slimMonthDE.length).toBe(2);
-//   });
-
-//   it('should monthes gets inputs parameters', () => {
-//     component.year = 1005;
-//     component.month = 5;
-//     component.nextMonth = 4;
-//     fixture.detectChanges();
-
-//     const flying: MockedComponent<MonthComponent> = fixture.debugElement.query(By.css('.flying-month')).componentInstance;
-//     const current: MockedComponent<MonthComponent> = fixture.debugElement.query(By.css('.current-month')).componentInstance;
-
-//     expect(flying.month).toBe(component.nextMonth);
-//     expect(flying.year).toBe(component.year);
-
-//     expect(current.month).toBe(component.month);
-//     expect(current.year).toBe(component.year);
-//   });
-
-//   it('should change animationState and nextMonty after getting positive monthTurn', () => {
-//     component.month = 5;
-//     component.monthTurn = { turn: 1 };
-//     expect(component.nextMonth).toBe(6);
-//     expect(component.animationState).toBe('next');
-//   });
-
-//   it('should change animationState and nextMonty after getting negative monthTurn', () => {
-//     component.month = 5;
-//     component.monthTurn = { turn: -1 };
-//     expect(component.nextMonth).toBe(4);
-//     expect(component.animationState).toBe('previous');
-//   });
-
-//   it('should call onCurrentDone after setting animationState "next"', async () => {
-//     spyOn(component, 'onCurrentDone');
-//     component.animationState = 'next';
-//     fixture.detectChanges();
-//     await fixture.whenStable();
-//     expect(component.onCurrentDone).toHaveBeenCalled();
-//   });
-
-//   it('should call onCurrentDone after setting animationState "previous"', async () => {
-//     spyOn(component, 'onCurrentDone');
-//     component.animationState = 'previous';
-//     fixture.detectChanges();
-//     await fixture.whenStable();
-//     expect(component.onCurrentDone).toHaveBeenCalled();
-//   });
-
-//   it('should change animationState and nextMonth after call onCurrentDone', async () => {
-//     let emittedNextMonth: number = null;
-//     const evt = { toState: 'previous' } as AnimationEvent;
-//     component.nextMonthChange.subscribe(n => emittedNextMonth = n);
-//     component.animationState = 'previous';
-//     component.nextMonth = 11;
-//     component.onCurrentDone(evt);
-
-//     expect(emittedNextMonth).toBe(11);
-//     expect(component.nextMonth).toBe(0);
-//     expect(component.animationState).toBe('stable');
-//   });
-// });
-

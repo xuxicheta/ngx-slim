@@ -1,5 +1,5 @@
 import { getLocaleFirstDayOfWeek } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, Input, LOCALE_ID, ViewEncapsulation, Output, EventEmitter, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, LOCALE_ID, Output, ViewEncapsulation } from '@angular/core';
 import { falser } from '../falser';
 
 @Component({

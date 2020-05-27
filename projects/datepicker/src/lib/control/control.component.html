@@ -8,14 +8,36 @@
   class="control-panel"
 >
   <ng-template [ngSwitchCase]="Mode.Day">
-    <span (click)="monthClick.emit()">{{date.getMonth() | monthName | titlecase}}</span>
-    <span (click)="yearClick.emit()">{{date.getFullYear()}}</span>
+    <span
+      (click)="monthClick.emit()"
+      class="month-panel"
+    >
+      {{date.getMonth() | monthName | titlecase}}
+    </span>
+    <span
+      (click)="yearClick.emit()"
+      class="year-panel"
+    >
+      {{date.getFullYear()}}
+    </span>
   </ng-template>
+
+
   <ng-template [ngSwitchCase]="Mode.Month">
-    <span (click)="yearClick.emit()">{{date.getFullYear()}}</span>
+    <span
+      (click)="yearClick.emit()"
+      class="year-panel"
+    >
+      {{date.getFullYear()}}
+    </span>
   </ng-template>
   <ng-template [ngSwitchCase]="Mode.Year">
-    <span (click)="yearClick.emit()">{{date.getFullYear()}}</span>
+    <span
+      (click)="yearClick.emit()"
+      class="dozen-panel"
+    >
+      {{date.getFullYear() | dozenName}}
+    </span>
   </ng-template>
 </div>
 

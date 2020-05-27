@@ -31,15 +31,15 @@ export class DozenComponent {
 
   private createDozen(date: Date): number[] {
     const year = date.getFullYear();
-    const start = year - ((year % 12) || 12);
+    const start = year - (year % 12);
     return Array.from({ length: 12}, (_, i) => start + i);
   }
 
-  private createIsMatch(rootDate: Date, date: Date): (d: number) => boolean {
-    if (!rootDate || !date) {
+  private createIsMatch(comparedDate: Date, current: Date): (d: number) => boolean {
+    if (!comparedDate || !current) {
       return falser;
     }
-    const year = rootDate.getFullYear();
+    const year = comparedDate.getFullYear();
     return (y: number) => y === year;
   }
 

@@ -9,6 +9,7 @@ import { ControlComponent } from './control/control.component';
 import { YearComponent } from './year/year.component';
 import { LeaferComponent } from './leafer/leafer.component';
 import { DozenComponent } from './dozen/dozen.component';
+import { DozenNamePipe } from './control/dozen-name/dozen-name.pipe';
 
 
 
@@ -22,6 +23,7 @@ import { DozenComponent } from './dozen/dozen.component';
     YearComponent,
     LeaferComponent,
     DozenComponent,
+    DozenNamePipe,
   ],
   imports: [
     CommonModule,

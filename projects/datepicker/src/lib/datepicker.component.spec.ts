@@ -2,38 +2,33 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng-mocks';
 import { mockProvider } from '../test/mock-provider';
 import { ControlComponent } from './control/control.component';
-import { DateFunctionsService } from './date-functions/date-functions.service';
 import { DatepickerComponent } from './datepicker.component';
-import { LocalizeService } from './localize/localize.service';
 import { YearComponent } from './year/year.component';
-import { MonthContainerComponent } from './month-container/month-container.component';
+import { MonthComponent } from './month/month.component';
+import { DozenComponent } from './dozen/dozen.component';
+import { DatepickerService } from './datepicker.service';
+import { LeaferComponent } from './leafer/leafer.component';
 
 
 describe('DatepickerComponent', () => {
   let component: DatepickerComponent;
   let fixture: ComponentFixture<DatepickerComponent>;
-  let dataFunctionService: DateFunctionsService;
 
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         DatepickerComponent,
-        MockComponent(MonthContainerComponent),
         MockComponent(ControlComponent),
         MockComponent(YearComponent),
+        MockComponent(MonthComponent),
+        MockComponent(DozenComponent),
+        MockComponent(LeaferComponent),
       ],
       providers: [
-        mockProvider(DateFunctionsService),
+        mockProvider(DatepickerService),
       ],
     })
-      .overrideComponent(DatepickerComponent, {
-        set: {
-          providers: [
-            mockProvider(LocalizeService),
-          ]
-        }
-      })
       .compileComponents();
   }));
 
@@ -41,7 +36,6 @@ describe('DatepickerComponent', () => {
     fixture = TestBed.createComponent(DatepickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    dataFunctionService = TestBed.inject(DateFunctionsService);
   });
 
   it('should create', () => {
