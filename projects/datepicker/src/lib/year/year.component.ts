@@ -1,5 +1,5 @@
 import { FormStyle, getLocaleMonthNames, TranslationWidth } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Inject, Input, LOCALE_ID, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, LOCALE_ID, Output, ViewEncapsulation } from '@angular/core';
 import { falser } from '../falser';
 
 @Component({
@@ -7,7 +7,7 @@ import { falser } from '../falser';
   templateUrl: './year.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  host: { class: 'slim-year' },
+  host: {class: 'slim-year'},
 })
 export class YearComponent {
   public readonly monthNames = getLocaleMonthNames(this.localeID, FormStyle.Standalone, TranslationWidth.Wide);
@@ -31,10 +31,15 @@ export class YearComponent {
 
   constructor(
     @Inject(LOCALE_ID) private localeID: string,
-  ) { }
+  ) {
+  }
 
   private createIsMatch(rootDate: Date, date: Date) {
-    if (!rootDate || !date || date.getFullYear() !== rootDate.getFullYear()) {
+    if (
+      !rootDate
+      || !date
+      || date.getFullYear() !== rootDate.getFullYear()
+    ) {
       return falser;
     }
 

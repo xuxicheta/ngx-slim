@@ -39,7 +39,7 @@ export class MonthComponent {
 
 
   private createCalendar(date: Date, firstDayOfWeek: number) {
-    const startDate = new Date(date.getFullYear(), date.getMonth(), 0, 12);
+    const startDate = new Date(date.getFullYear(), date.getMonth(), 1, 12);
     const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0, 12);
     const startDay = ((startDate.getDay() || 7) - firstDayOfWeek) % 7;
     const endDay = ((endDate.getDay() || 7) - firstDayOfWeek) % 7;
@@ -52,7 +52,12 @@ export class MonthComponent {
   }
 
   private createIsMatch(rootDate: Date, date: Date): (d: number) => boolean {
-    if (!rootDate || !date || (date.getFullYear() !== rootDate.getFullYear() && date.getMonth() !== rootDate.getMonth())) {
+    if (
+      !rootDate
+      || !date
+      || date.getFullYear() !== rootDate.getFullYear()
+      || date.getMonth() !== rootDate.getMonth()
+    ) {
       return falser;
     }
 

@@ -10,6 +10,7 @@ import { YearComponent } from './year/year.component';
 import { LeaferComponent } from './leafer/leafer.component';
 import { DozenComponent } from './dozen/dozen.component';
 import { DozenNamePipe } from './control/dozen-name/dozen-name.pipe';
+import { SlimDatepickerDirective } from './slim-datepicker.directive';
 
 
 
@@ -24,11 +25,13 @@ import { DozenNamePipe } from './control/dozen-name/dozen-name.pipe';
     LeaferComponent,
     DozenComponent,
     DozenNamePipe,
+    SlimDatepickerDirective,
   ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
   ],
-  exports: [DatepickerComponent],
+  entryComponents: [DatepickerComponent],
+  exports: [DatepickerComponent, SlimDatepickerDirective],
 })
 export class SlimDatepickerModule { }

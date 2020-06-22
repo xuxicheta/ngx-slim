@@ -84,27 +84,49 @@ describe('DozenComponent', () => {
     expect(wrapper.pickYear).toHaveBeenCalledWith(+yearEl.textContent);
   });
 
-  it('should have today', () => {
-    const baseTime = new Date(2019, 9);
-    const date = new Date(2020, 10);
-    jasmine.clock().mockDate(baseTime);
+  describe('today', () => {
+    it('should have today when show current dozen', () => {
+      const baseTime = new Date(2019, 9);
+      const date = new Date(2020, 10);
+      jasmine.clock().mockDate(baseTime);
 
-    fixture.componentInstance.date = date;
-    fixture.detectChanges();
+      fixture.componentInstance.date = date;
+      fixture.detectChanges();
 
-    const todayEl: HTMLDivElement = fixture.nativeElement.querySelector('.today');
-    expect(todayEl.textContent.trim()).toBe(baseTime.getFullYear().toString());
+      const todayEl: HTMLDivElement = fixture.nativeElement.querySelector('.today');
+      expect(todayEl.textContent.trim()).toBe(baseTime.getFullYear().toString());
+    });
+
+    it('shouldn\'t have today when show not current dozen', () => {
+      const baseTime = new Date(2019, 9);
+      const date = new Date(2005, 10);
+      jasmine.clock().mockDate(baseTime);
+
+      fixture.componentInstance.date = date;
+      fixture.detectChanges();
+
+      const todayEl: HTMLDivElement = fixture.nativeElement.querySelector('.today');
+      expect(todayEl).toBeFalsy();
+    });
   });
 
-  it('should have chosen', () => {
-    // const baseTime = new Date(2019, 9);
-    const chosenDate = new Date(2023, 10);
-    // jasmine.clock().mockDate(baseTime);
+  describe('chosen', () => {
+    it('should have chosen show chosen dozen', () => {
+      const chosenDate = new Date(2023, 10);
 
-    fixture.componentInstance.chosenDate = chosenDate;
-    fixture.detectChanges();
+      fixture.componentInstance.chosenDate = chosenDate;
+      fixture.detectChanges();
 
-    const chosenEl: HTMLDivElement = fixture.nativeElement.querySelector('.chosen');
-    expect(chosenEl.textContent.trim()).toBe(chosenDate.getFullYear().toString());
+      const chosenEl: HTMLDivElement = fixture.nativeElement.querySelector('.chosen');
+      expect(chosenEl.textContent.trim()).toBe(chosenDate.getFullYear().toString());
+    });
+
+    it('shouldn\'t have chosen show not chosen dozen', () => {
+      fixture.componentInstance.chosenDate = new Date(2005, 10);
+      fixture.detectChanges();
+
+      const chosenEl: HTMLDivElement = fixture.nativeElement.querySelector('.chosen');
+      expect(chosenEl).toBeFalsy();
+    });
   });
 });

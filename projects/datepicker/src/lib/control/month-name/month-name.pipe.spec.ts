@@ -1,26 +1,23 @@
 import { LOCALE_ID } from '@angular/core';
 import { inject } from '@angular/core/testing';
 import { MonthNamePipe } from './month-name.pipe';
-import * as AngularCommon from '@angular/common';
-
-const monthNames = () => Array(12).fill(0).map((_, i) => 'm' + i);
+import { getLocaleMonthNames, FormStyle, TranslationWidth} from '@angular/common';
 
 describe('MonthNamePipe', () => {
   let pipe: MonthNamePipe;
+  let monthNames: string[];
 
   beforeEach(inject([LOCALE_ID], (localeId: string) => {
     pipe = new MonthNamePipe(localeId);
+    monthNames = getLocaleMonthNames(localeId, FormStyle.Standalone, TranslationWidth.Wide);
   }));
 
   it('create an instance', () => {
     expect(pipe).toBeTruthy();
   });
 
-  xit('should transform month', () => {
-    spyOn(AngularCommon, 'getLocaleMonthNames').and.returnValue(monthNames());
-    expect(pipe.transform(0)).toBe('m0');
-    expect(pipe.transform(6)).toBe('m6');
-    expect(pipe.transform(7)).toBe('m7');
+  it('should transform month', () => {
+    monthNames.forEach((monthName, index) => expect(pipe.transform(index)).toBe(monthName));
   });
 
   it('should not transform outrange number', () => {

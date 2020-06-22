@@ -1,7 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Output,
+  ViewEncapsulation
+} from '@angular/core';
 import { DatepickerService } from './datepicker.service';
 import { Mode } from './mode.enum';
-
 
 
 @Component({
@@ -10,7 +18,7 @@ import { Mode } from './mode.enum';
   styleUrls: ['./datepicker.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  host: { class: 'slim-datepicker' },
+  host: {class: 'slim-datepicker'},
 })
 export class DatepickerComponent {
   public date = new Date();
@@ -22,6 +30,7 @@ export class DatepickerComponent {
   Mode = Mode;
 
   @Output() valueChange = new EventEmitter<Date>();
+  @Output() dispose = new EventEmitter();
 
   constructor(
     private elRef: ElementRef<HTMLElement>,
@@ -40,11 +49,16 @@ export class DatepickerComponent {
   @HostListener('document:keydown', ['$event'])
   onKeyDown(evt: KeyboardEvent) {
     switch (evt.code) {
-      case 'Escape': return this.cancelMode();
-      case 'ArrowLeft': return this.left();
-      case 'ArrowRight': return this.right();
-      case 'KeyM': return this.modeDown(Mode.Month);
-      case 'KeyY': return this.modeDown(Mode.Year);
+      case 'Escape':
+        return this.cancelMode();
+      case 'ArrowLeft':
+        return this.left();
+      case 'ArrowRight':
+        return this.right();
+      case 'KeyM':
+        return this.modeDown(Mode.Month);
+      case 'KeyY':
+        return this.modeDown(Mode.Year);
     }
   }
 
@@ -79,6 +93,8 @@ export class DatepickerComponent {
     if (this.mode !== Mode.Day) {
       this.mode = Mode.Day;
       this.date = this.hangDate;
+    } else {
+      this.dispose.emit();
     }
   }
 
@@ -108,7 +124,6 @@ export class DatepickerComponent {
     this.chosenDate = new Date(this.date);
     this.chosenDate.setDate(day);
     this.valueChange.emit(this.chosenDate);
-    console.log(this.chosenDate);
   }
 
   pickMonth(month: number) {

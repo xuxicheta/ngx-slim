@@ -3,4 +3,5 @@
  */
 
 export * from './lib/datepicker.component';
-export * from './lib/datepicker.module';
+export * from './lib/slim-datepicker.module';
+export * from './lib/slim-datepicker.directive';

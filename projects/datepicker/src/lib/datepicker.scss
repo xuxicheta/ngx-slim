@@ -4,11 +4,15 @@ $controlHeight: 24px;
 $internalPadding: 2px;
 $elementPadding: 4px;
 
+// 224-196
+
 .slim-datepicker {
   display: block;
-  width: $width;
+  width: $width + 12px;
+  height: $height + 39px;
   padding: 2px;
   position: relative;
+  box-sizing: border-box;
 }
 
 .today {
@@ -16,11 +20,15 @@ $elementPadding: 4px;
 }
 
 .slim-datepicker .cell.chosen {
-  box-shadow: 0 0 6px 0 red inset;
+  background: #ddd;
+}
+
+.slim-datepicker .day.chosen {
+  box-shadow: -3px -6px 18px 0 #888 inset;
 }
 
 .cell {
-  border-radius: 4px;
+  border-radius: 16px;
   padding: $elementPadding;
   box-sizing: border-box;
   display: inline-block;
@@ -78,7 +86,7 @@ $elementPadding: 4px;
   }
 
   .month:hover {
-    background: #ddd;
+    //background: #eee;
   }
 }
 
@@ -92,13 +100,16 @@ $elementPadding: 4px;
   }
 
   .year:hover {
-    background: #ddd;
+    //background: #eee;
   }
 }
 
 .slim-control {
   display: flex;
   height: $controlHeight;
+  padding-top: 3px;
+  padding-left: 4px;
+  padding-right: 4px;
 
   .slim-arrow {
     flex: none;
@@ -128,4 +139,11 @@ $elementPadding: 4px;
   &.flip {
     transform: scaleX(-1);
   }
+}
+
+.datepicker-floating {
+  position: absolute;
+  border: 1px solid #ccc;
+  opacity: 0;
+  transition: opacity 0.1s;
 }
